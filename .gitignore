@@ -1,6 +1,7 @@
 ### local
 
 dist
+app/root/asset/js/bundle.*
 
 ### https://raw.github.com/github/gitignore/cc542de017c606138a87ee4880e5f06b3a306def/Global/OSX.gitignore
 
