@@ -2,8 +2,7 @@ var gulp        = require('gulp'),
     browserSync = require('browser-sync'),
     del         = require('del'),
     sass        = require('gulp-sass'),
-    sourcemaps  = require('gulp-sourcemaps'),
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
     webpack     = require('gulp-webpack');
 
 var browserReloadWait = 400;
