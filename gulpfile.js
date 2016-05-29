@@ -3,6 +3,8 @@ var gulp        = require('gulp'),
     del         = require('del'),
     sass        = require('gulp-sass'),
     runSequence = require('run-sequence'),
+    sourcemaps  = require('gulp-sourcemaps'),
+    plumber     = require('gulp-plumber'),
     webpack     = require('gulp-webpack');
 
 var browserReloadWait = 400;
@@ -61,6 +63,10 @@ gulp.task("webpack", function () {
                           module: {
                               loaders: [
                                   {
+                                      test: /\.css$/,
+                                      loader: "style!css"
+                                  },
+                                  {
                                       test: /\.scss$/,
                                       loaders: ["style", "css", "sass"]
                                   }
@@ -68,4 +74,18 @@ gulp.task("webpack", function () {
                           }
                       }))
         .pipe(gulp.dest('./app/root/asset/js'));
+});
+
+gulp.task('sass', function () {
+    return gulp.src('./app/src/sass/**/*.scss')
+        .pipe(sourcemaps.init())
+        .pipe(plumber({
+                          errorHandler: function(err) {
+                              console.log(err.messageFormatted);
+                              this.emit('end');
+                          }
+                      }))
+        .pipe(sass())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./app/root/asset/css'))
 });
